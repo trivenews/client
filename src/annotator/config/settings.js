@@ -106,6 +106,16 @@ function settingsFrom(window_) {
     return showHighlights_;
   }
 
+  function disableToolbarCloseBtn() {
+    var disableToolbarCloseBtn_ = hostPageSetting('disableToolbarCloseBtn');
+
+    if (disableToolbarCloseBtn_ === null) {
+      disableToolbarCloseBtn_ = true;  // The default value is 'always'.
+    }
+
+    return disableToolbarCloseBtn_;
+  }
+
   /**
    * Return the config.query setting from the host page or from the URL.
    *
@@ -158,6 +168,7 @@ function settingsFrom(window_) {
   return {
     get annotations() { return annotations(); },
     get clientUrl() { return clientUrl(); },
+    get disableToolbarCloseBtn() { return disableToolbarCloseBtn(); },
     get showHighlights() { return showHighlights(); },
     get sidebarAppUrl() { return sidebarAppUrl(); },
     get query() { return query(); },

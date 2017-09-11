@@ -2,6 +2,10 @@
 
 module.exports = {
   controllerAs: 'vm',
+  //@ngInject
+  controller: function (settings) {
+    this.isThemeClean = settings.theme === 'clean' ? true : false;
+  },
   bindings: {
     auth: '<',
     isSidebar: '<',

@@ -36,6 +36,14 @@ module.exports = class Sidebar extends Host
 
     if @plugins.Toolbar?
       @toolbarWidth = parseInt(window.getComputedStyle(this.plugins.Toolbar.toolbar[0]).width)
+      if config.disableToolbarMinimizeBtn
+        @toolbar.find('[name=sidebar-toggle]').remove();
+      if config.disabledToolbarHighlightsBtn
+        @toolbar.find('[name=highlight-visibility]').remove();
+      if config.disableToolbarNewNoteBtn
+        @toolbar.find('[name=insert-comment]').remove();
+      if config.disableToolbarCloseBtn
+        @toolbar.find('[name=sidebar-close]').remove();
       this._setupGestures()
 
     # The partner-provided callback functions.
@@ -87,24 +95,25 @@ module.exports = class Sidebar extends Host
   _setupGestures: ->
     $toggle = @toolbar.find('[name=sidebar-toggle]')
 
-    # Prevent any default gestures on the handle
-    $toggle.on('touchmove', (event) -> event.preventDefault())
+    if $toggle[0]
+      # Prevent any default gestures on the handle
+      $toggle.on('touchmove', (event) -> event.preventDefault())
 
-    # Set up the Hammer instance and handlers
-    mgr = new Hammer.Manager($toggle[0])
-    .on('panstart panend panleft panright', this.onPan)
-    .on('swipeleft swiperight', this.onSwipe)
+      # Set up the Hammer instance and handlers
+      mgr = new Hammer.Manager($toggle[0])
+      .on('panstart panend panleft panright', this.onPan)
+      .on('swipeleft swiperight', this.onSwipe)
 
-    # Set up the gesture recognition
-    pan = mgr.add(new Hammer.Pan({direction: Hammer.DIRECTION_HORIZONTAL}))
-    swipe = mgr.add(new Hammer.Swipe({direction: Hammer.DIRECTION_HORIZONTAL}))
-    swipe.recognizeWith(pan)
+      # Set up the gesture recognition
+      pan = mgr.add(new Hammer.Pan({direction: Hammer.DIRECTION_HORIZONTAL}))
+      swipe = mgr.add(new Hammer.Swipe({direction: Hammer.DIRECTION_HORIZONTAL}))
+      swipe.recognizeWith(pan)
 
-    # Set up the initial state
-    this._initializeGestureState()
+      # Set up the initial state
+      this._initializeGestureState()
 
-    # Return this for chaining
-    this
+      # Return this for chaining
+      this
 
   _initializeGestureState: ->
     @gestureState =
@@ -234,9 +243,10 @@ module.exports = class Sidebar extends Host
       @toolbar.find('[name=sidebar-toggle]')
       .removeClass('h-icon-chevron-left')
       .addClass('h-icon-chevron-right')
+      @toolbar.find('[name=sidebar-close]').show();
 
     if @options.showHighlights == 'whenSidebarOpen'
-      @setVisibleHighlights(true)
+      @setAllVisibleHighlights(true)
 
     this._notifyOfLayoutChange(true)
 
@@ -250,7 +260,7 @@ module.exports = class Sidebar extends Host
       .addClass('h-icon-chevron-left')
 
     if @options.showHighlights == 'whenSidebarOpen'
-      @setVisibleHighlights(false)
+      @setAllVisibleHighlights(false)
 
     this._notifyOfLayoutChange(false)
 

@@ -28,6 +28,16 @@ module.exports = class Toolbar extends Plugin
       $(@element).append @toolbar
 
     items = [
+      "title": "Close Sidebar"
+      "class": "annotator-frame-button--sidebar_close h-icon-close"
+      "name": "sidebar-close"
+      "on":
+        "click": (event) =>
+          event.preventDefault()
+          event.stopPropagation()
+          @annotator.hide()
+          @toolbar.find('[name=sidebar-close]').hide();
+    ,
       "title": "Toggle or Resize Sidebar"
       "class": "annotator-frame-button--sidebar_toggle h-icon-chevron-left"
       "name": "sidebar-toggle"

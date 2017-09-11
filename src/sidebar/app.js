@@ -181,6 +181,7 @@ module.exports = angular.module('h', [
   .component('loginControl', require('./components/login-control'))
   .component('loginForm', require('./components/login-form'))
   .component('markdown', require('./components/markdown'))
+  .component('newNote', require('./components/new-note'))
   .component('moderationBanner', require('./components/moderation-banner'))
   .component('publishAnnotationBtn', require('./components/publish-annotation-btn'))
   .component('searchInput', require('./components/search-input'))

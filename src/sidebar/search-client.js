@@ -41,7 +41,6 @@ SearchClient.prototype._getBatch = function (query, offset) {
     if (self._canceled) {
       return;
     }
-
     var chunk = results.rows.concat(results.replies || []);
     if (self._incremental) {
       self.emit('results', chunk);

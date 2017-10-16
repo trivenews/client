@@ -28,18 +28,15 @@
   </section>
   <!-- / Body -->
 
-  <!-- Links -->
+  <!-- Sources to verify/falsify claims -->
   <section name="sources" class="annotation-sources">
-    <sources sources="vm.state().sources" on-edit-sources="vm.setSources(sources)" read-only="!vm.editing()"></sources>
+    <sources data="vm.state().sources" on-edit-sources="vm.setSources(sources)" read-only="!vm.editing()"></sources>
   </section>
-  <!-- /Links -->
+  <!-- /Sources -->
 
   <!-- Truth-O-Meter -->
   <section name="truthometer" class="truth-o-meter-container">
-    <p class="truth-o-meter-title">Truth-O-Meter</p>
-    <div class="angular-circular-guage-container">
-      <input type="range" min="-100" max="100"/>
-    </div>
+    <truthiness data="vm.state().truthiness" on-edit-truthiness="vm.setTruthiness(truthiness)" read-only="!vm.editing()"></truthiness>
   </section>
   <!-- /Truth-O-Meter -->
 

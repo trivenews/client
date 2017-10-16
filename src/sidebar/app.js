@@ -197,6 +197,7 @@ module.exports = angular.module('h', [
   .component('threadList', require('./components/thread-list'))
   .component('timestamp', require('./components/timestamp'))
   .component('topBar', require('./components/top-bar'))
+  .component('truthiness', require('./components/truthiness'))
 
   .directive('formInput', require('./directive/form-input'))
   .directive('formValidate', require('./directive/form-validate'))

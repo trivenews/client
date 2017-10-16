@@ -123,6 +123,11 @@ function AnnotationController(
     if (!Array.isArray(self.annotation.tags)) {
       self.annotation.tags = [];
     }
+    if (!Array.isArray(self.annotation.sources)) {
+      self.annotation.sources = ["","",""];
+    }
+    self.annotation.truthiness = parseInt(self.annotation.truthiness) || self.annotation.truthiness;
+
 
     // Automatically save new highlights to the server when they're created.
     // Note that this line also gets called when the user logs in (since
@@ -562,7 +567,7 @@ function AnnotationController(
   this.setTruthiness = function (truthiness) {
     drafts.update(self.annotation, {
       isPrivate: self.state().isPrivate,
-      tags: self.state.tags(),
+      tags: self.state().tags,
       text: self.state().text,
       sources: self.state().sources,
       truthiness: truthiness

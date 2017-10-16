@@ -71,6 +71,8 @@ function DraftStore() {
         return {
           isPrivate: draft.isPrivate,
           tags: draft.tags,
+          sources: draft.sources,
+          truthiness: draft.truthiness,
           text: draft.text,
         };
       }
@@ -95,6 +97,8 @@ function DraftStore() {
     var newDraft = {
       model: {id: model.id, $tag: model.$tag},
       isPrivate: changes.isPrivate,
+      sources: changes.sources,
+      truthiness: changes.truthiness,
       tags: changes.tags,
       text: changes.text,
     };

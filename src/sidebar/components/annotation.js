@@ -18,6 +18,8 @@ function updateModel(annotation, changes, permissions) {
     // Apply changes from the draft
     tags: changes.tags,
     text: changes.text,
+    sources: changes.sources,
+    truthiness: changes.truthiness,
     permissions: changes.isPrivate ?
       permissions.private(userid) : permissions.shared(userid, annotation.group),
   });
@@ -37,6 +39,7 @@ function AnnotationController(
     var saved;
     var updating = !!annot.id;
 
+    console.log("annotation is ", annot);
     if (updating) {
       saved = store.annotation.update({ id: annot.id }, annot);
     } else {
@@ -394,7 +397,12 @@ function AnnotationController(
       return Promise.resolve();
     }
 
+    console.log("annotation is ", self.annotation);
+    console.log("STATE IS ", self.state());
+
     var updatedModel = updateModel(self.annotation, self.state(), permissions);
+
+    console.log("updatedModel is ", updatedModel);
 
     // Optimistically switch back to view mode and display the saving
     // indicator
@@ -441,7 +449,7 @@ function AnnotationController(
       text: self.state().text,
       isPrivate: privacy === 'private',
       sources: self.state().sources,
-      truthOMeter: self.state().truthOMeter
+      truthiness: self.state().truthiness
     });
   };
 
@@ -527,7 +535,7 @@ function AnnotationController(
       tags: self.state().tags,
       text: text,
       sources: self.state().sources,
-      truthOMeter: self.state().truthOMeter
+      truthiness: self.state().truthiness
     });
   };
 
@@ -537,7 +545,7 @@ function AnnotationController(
       tags: tags,
       text: self.state().text,
       sources: self.state().sources,
-      truthOMeter: self.state().truthOMeter
+      truthiness: self.state().truthiness
     });
   };
 
@@ -547,17 +555,17 @@ function AnnotationController(
       tags: self.state().tags,
       text: self.state().text,
       sources: sources,
-      truthOMeter: self.state().truthOMeter
+      truthiness: self.state().truthiness
     });
   }
 
-  this.setTruthOMeter = function (truthOMeter) {
+  this.setTruthiness = function (truthiness) {
     drafts.update(self.annotation, {
       isPrivate: self.state().isPrivate,
       tags: self.state.tags(),
       text: self.state().text,
       sources: self.state().sources,
-      truthOMeter: truthOMeter
+      truthiness: truthiness
     });
   }
 
@@ -572,7 +580,7 @@ function AnnotationController(
       isPrivate: !permissions.isShared(self.annotation.permissions,
         self.annotation.user),
       sources: self.annotation.sources,
-      truthOMeter: self.annotation.truthOMeter
+      truthiness: self.annotation.truthiness
     };
   };
 

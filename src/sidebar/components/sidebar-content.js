@@ -234,7 +234,7 @@ function SidebarContentController(
   // Re-fetch annotations when focused group, logged-in user or connected frames
   // change.
   $scope.$watch(() => ([
-    groups.focused().id,
+    groups.focused() && groups.focused().id,
     annotationUI.profile().userid,
     ...annotationUI.searchUris(),
   ]), ([currentGroupId], [prevGroupId]) => {

@@ -50,7 +50,7 @@ function LiveReloadServer(port, config) {
           <html>
           <head>
             <meta charset="UTF-8">
-            <title>Hypothesis in-line frame document - License</title>
+            <title>Trive.news in-line frame document - License</title>
           </head>
           <body>
             <pre style="margin: 20px;">${licenseText()}</pre>
@@ -62,7 +62,7 @@ function LiveReloadServer(port, config) {
           <html>
           <head>
             <meta charset="UTF-8">
-            <title>Hypothesis in-line frame document - Changelog</title>
+            <title>Trive.news in-line frame document - Changelog</title>
           </head>
           <body>
             <pre style="margin: 20px;">${changelogText()}</pre>
@@ -74,7 +74,7 @@ function LiveReloadServer(port, config) {
           <html>
           <head>
             <meta charset="UTF-8">
-            <title>Hypothesis Client Test</title>
+            <title>Trive.news Client Test</title>
           </head>
           <body>
             <div data-hypothesis-trigger style="margin: 75px 0 0 75px;">

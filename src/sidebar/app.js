@@ -189,6 +189,7 @@ module.exports = angular.module('h', [
   .component('sidebarContent', require('./components/sidebar-content'))
   .component('sidebarTutorial', require('./components/sidebar-tutorial'))
   .component('shareDialog', require('./components/share-dialog'))
+  .component('sources', require('./components/sources'))
   .component('sortDropdown', require('./components/sort-dropdown'))
   .component('streamContent', require('./components/stream-content'))
   .component('svgIcon', require('./components/svg-icon'))

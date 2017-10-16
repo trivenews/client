@@ -57,7 +57,7 @@ function auth($http, $rootScope, $window,
   function showAccessTokenExpiredErrorMessage(message) {
     flash.error(
       message,
-      'Hypothesis login lost',
+      'Trive.news login lost',
       {
         extendedTimeOut: 0,
         tapToDismiss: false,
@@ -359,7 +359,7 @@ function auth($http, $rootScope, $window,
     //
     // Chrome, Safari & Edge have different heuristics and are not affected by
     // this problem.
-    var authWindow = $window.open('about:blank', 'Login to Hypothesis', authWindowSettings);
+    var authWindow = $window.open('about:blank', 'Login to Trive.news', authWindowSettings);
 
     return apiRoutes.links().then(links => {
       var authUrl = links['oauth.authorize'];

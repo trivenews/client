@@ -1,11 +1,11 @@
 <div>
-	<p class="annotation-sources-title">
-		Fact Links</p>
+	<p class="annotation-sources-title">References</p>
 	<div ng-show="!vm.readOnly">
 		<input class="fact-link fact-link-0" index="0" type="text" />
 		<input class="fact-link fact-link-1" index="1" type="text" />
 		<input class="fact-link fact-link-2" index="2" type="text" />
 	</div>
+	<div ng-show="vm.readOnly && !vm.hasReferences()">No References</div>
 	<div ng-show="vm.readOnly">
 		<div>
 			<a ng-href="{{vm.getHref(0)}}" target="_blank">{{vm.getLinkValue(vm.values[0])}}</a>

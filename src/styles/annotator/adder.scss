@@ -89,7 +89,9 @@ $adder-transition-duration: 80ms;
 .annotator-adder-actions:hover .annotator-adder-actions__label {
   color: $gray-light !important;
 }
-
+.annotator-adder-actions__button.h-icon-highlight{ //I added this for trive to remove highlight
+  display:none !important;
+}
 .annotator-adder-actions__button {
   box-shadow: none;
   font-family: h;

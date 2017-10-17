@@ -4,6 +4,8 @@ var annotationMetadata = require('../annotation-metadata');
 var events = require('../events');
 var persona = require('../filter/persona');
 
+var alertify = require('../lib/alertify/alertify.js');
+
 var isNew = annotationMetadata.isNew;
 var isReply = annotationMetadata.isReply;
 var isPageNote = annotationMetadata.isPageNote;
@@ -39,7 +41,6 @@ function AnnotationController(
     var saved;
     var updating = !!annot.id;
 
-    console.log("annotation is ", annot);
     if (updating) {
       saved = store.annotation.update({ id: annot.id }, annot);
     } else {
@@ -124,7 +125,7 @@ function AnnotationController(
       self.annotation.tags = [];
     }
     if (!Array.isArray(self.annotation.sources)) {
-      self.annotation.sources = ["","",""];
+      self.annotation.sources = ["", "", ""];
     }
     self.annotation.truthiness = parseInt(self.annotation.truthiness) || self.annotation.truthiness;
 
@@ -219,7 +220,7 @@ function AnnotationController(
   this.delete = function () {
     return $timeout(function () {  // Don't use confirm inside the digest cycle.
       var msg = 'Are you sure you want to delete this annotation?';
-      if ($window.confirm(msg)) {
+      alertify.confirm(msg, function () {
         var onRejected = function (err) {
           flash.error(err.message, 'Deleting annotation failed');
         };
@@ -241,7 +242,7 @@ function AnnotationController(
 
           }, onRejected);
         });
-      }
+      });
     }, true);
   };
 
@@ -420,10 +421,14 @@ function AnnotationController(
 
       var event = isNew(self.annotation) ?
         events.ANNOTATION_CREATED : events.ANNOTATION_UPDATED;
+      console.log("WILL REMOVE Draft");
       drafts.remove(self.annotation);
+      console.log("REMOVED");
 
       $rootScope.$broadcast(event, updatedModel);
+      console.log("MODEL UPDATED")
     }).catch(function (err) {
+      console.error("an error was found");
       self.isSaving = false;
       self.edit();
       flash.error(err.message, 'Saving annotation failed');

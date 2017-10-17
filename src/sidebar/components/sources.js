@@ -4,15 +4,22 @@ var debounce = require('lodash.debounce');
 
 // @ngInject
 function SourcesController($element, $scope) {
-	var self = this;
+	var vm = this;
 	var inputs = $element[0].querySelectorAll(".fact-link");
 	this.values = [];
 	
 	var handleInputChange = debounce(function () {
 		$scope.$apply(function () {
-			self.onEditSources({ sources: getValues() });
+			vm.onEditSources({ sources: getValues() });
 		});
 	}, 100);
+
+	this.hasReferences = function () {
+		for (var i = 0; i < vm.values.length; ++i){
+			if (vm.values[i])
+				return true;
+		}
+	}
 
 	function getValues() {
 		var values = []
@@ -26,11 +33,11 @@ function SourcesController($element, $scope) {
 	}
 
 	this.getHref = function (index) {
-		if (!self.values.length || !self.values[index])
+		if (!vm.values.length || !vm.values[index])
 			return null;
-		if (self.values[index].slice(0, 4) !== "http")
-			return "http://" + self.values[index];
-		return self.values[index];
+		if (vm.values[index].slice(0, 4) !== "http")
+			return "http://" + vm.values[index];
+		return vm.values[index];
 	}
 
 	this.getLinkValue = function (data) {
@@ -48,14 +55,14 @@ function SourcesController($element, $scope) {
 			inputs[0].value = "";
 			inputs[1].value = "";
 			inputs[2].value = "";
-			self.values[0] = "";
-			self.values[1] = "";
-			self.values[2] = "";
+			vm.values[0] = "";
+			vm.values[1] = "";
+			vm.values[2] = "";
 			return;
 		}
 		for (var i = 0; i < newVal.length; ++i){
 			inputs[i].value = newVal[i];
-			self.values[i] = newVal[i];
+			vm.values[i] = newVal[i];
 		}
 	})
 }

@@ -1,5 +1,9 @@
 @import "mixins/icons";
 
+.annotator-adder-actions__button{ //I added this for trive to remove highlight
+  display:none !important;
+}
+
 // Highlight quote of annotation whenever its thread is hovered
 .thread-list__card:hover .annotation-quote {
   border-left: $highlight 3px solid;

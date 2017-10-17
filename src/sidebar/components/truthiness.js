@@ -57,10 +57,12 @@ function TruthinessController($element, $scope) {
 			vm.onEditTruthiness({ truthiness: vm.currentValue });
 		});
 	}, 100);
-	// input.addEventListener('input', handleInputChange);
+	
 	slider.noUiSlider.on('update', function (values) {
+		if (vm.readOnly)
+			return;
 		$scope.$applyAsync(function () {
-			vm.currentValue = values[0];
+			vm.currentValue = parseInt(values[0]);
 			gauge.set(vm.currentValue); // set actual value
 		})
 		handleInputChange();

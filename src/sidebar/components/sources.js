@@ -34,7 +34,6 @@ function SourcesController($element, $scope) {
 	}
 
 	this.getLinkValue = function (data) {
-		console.log("Data is ", data);
 		if (!data)
 			return "";
 		if (data.slice(0, 8).toLowerCase() == "https://")

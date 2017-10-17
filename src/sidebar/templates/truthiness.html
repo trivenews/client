@@ -1,4 +1,16 @@
 <p class="truth-o-meter-title">Truth-O-Meter</p>
 <div class="angular-circular-guage-container">
-	<input type="range" min="-100" max="100" class="truthiness-input" />
+	<div>
+		<p class="truth-value">
+			<span>{{vm.getTruthText()}}</span>
+			<span class="truth-value-display">{{vm.currentValue}}</span>
+		</p>
+		<canvas class="gauge-canvas"></canvas>
+	</div>
+	<div ng-show="!vm.readOnly">
+		<div class="slider-container">
+			<div class="slider"></div>
+		</div>
+		<!-- <input type="range" min="-100" max="100" class="truthiness-input" /> -->
+	</div>
 </div>

@@ -26,10 +26,10 @@ function TruthinessController($element, $scope) {
 		// colorStop: '#59C5DA',    // just experiment with them
 		strokeColor: '#E0E0E0',  // to see which ones work best for you
 		staticZones: [
-			{ strokeStyle: "#F03E3E", min: -100, max: -30 }, // Red from 100 to 130
-			{ strokeStyle: "#ff920b", min: -30, max: 20 }, // Orange
-			{ strokeStyle: "#FFDD00", min: 20, max: 60 }, // Yellow
-			{ strokeStyle: "#34d60b", min: 60, max: 100 }, // Green
+			{ strokeStyle: "#F03E3E", min: -100, max: -50 }, // Red from 100 to 130
+			{ strokeStyle: "#ff920b", min: -50, max: 0 }, // Orange
+			{ strokeStyle: "#FFDD00", min: 0, max: 50 }, // Yellow
+			{ strokeStyle: "#34d60b", min: 50, max: 100 }, // Green
 		],
 		generateGradient: true,
 		highDpiSupport: true     // High resolution support

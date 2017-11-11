@@ -129,7 +129,9 @@
 // the footer at the bottom of an annotation displaying
 // the annotation actions and reply counts
 .annotation-footer {
-  @include font-normal;
+  // @include font-normal;
+  font-weight:400px;
+  line-height:1;
   color: $grey-5;
   margin-top: $layout-h-margin;
 }
@@ -179,9 +181,11 @@
 }
 
 .annotation-actions {
-  float: right;
+  float: none;
   margin-top: 0;
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .annotation-action-btn {
@@ -189,6 +193,10 @@
   font-weight: normal;
   padding: 0;
   margin: 0px 0px 0px 12px;
+
+  .btn-icon{
+    font-size:20px;
+  }
 
   &[disabled] {
     opacity: 0.2;

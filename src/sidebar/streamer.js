@@ -24,6 +24,12 @@ function Streamer($rootScope, annotationMapper, annotationUI, auth,
                   groups, session, settings) {
   // The randomly generated session UUID
   var clientId = uuid.v4();
+  window._triveClientId = clientId;
+  console.log("CLIENT ID ", clientId);
+  chrome.runtime.sendMessage({
+    message: "setClientId",
+    clientId: clientId
+  });
 
   // The socket instance for this Streamer instance
   var socket;

@@ -7,6 +7,14 @@ var scopeTimeout = require('../util/scope-timeout');
 // @ngInject
 function AnnotationShareDialogController($element, $scope, analytics) {
   var self = this;
+  var vm = this;
+
+  vm.showShareLink = false;
+  vm.shareLinkClicked = function () {
+    console.log("clicked")
+    vm.showShareLink = !vm.showShareLink
+  }
+
   var shareLinkInput = $element.find('input')[0];
 
   $scope.$watch('vm.isOpen', function (isOpen) {
@@ -43,8 +51,8 @@ function AnnotationShareDialogController($element, $scope, analytics) {
     }
   };
 
-  this.onShareClick = function(target){
-    if(target){
+  this.onShareClick = function (target) {
+    if (target) {
       analytics.track(analytics.events.ANNOTATION_SHARED, target);
     }
   };

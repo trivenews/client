@@ -1,6 +1,6 @@
 'use strict';
 
-var VIA_REFERRER = /^https:\/\/(qa-)?via.hypothes.is\//;
+var VIA_REFERRER = /^https:\/\/(qa-)?hive.trive.news\//;
 
 var globalGAOptions = function(win, settings){
 

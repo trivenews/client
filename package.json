@@ -148,5 +148,8 @@
     "version": "make clean all && ./scripts/update-changelog.js && git add CHANGELOG.md",
     "postversion": "./scripts/postversion.sh",
     "prepublish": "yarn run build"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
   }
 }

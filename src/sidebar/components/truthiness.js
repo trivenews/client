@@ -1,8 +1,9 @@
 'use strict';
 var debounce = require('lodash.debounce');
 var GaugeLib = require("../util/gauge.js");
-var noUiSlider = require("../lib/no-ui-slider/nouislider.js");
 var Gauge = GaugeLib.Gauge;
+var noUiSlider = require("../lib/no-ui-slider/nouislider.js");
+
 
 // @ngInject
 function TruthinessController($element, $scope) {

@@ -19,7 +19,14 @@ function auth($http, jwtHelper, settings) {
    */
   function fetchToken() {
     var tokenUrl = new URL('token', settings.apiUrl).href;
+    console.log("FETCHING")
     return $http.get(tokenUrl, {}).then(function (response) {
+      console.log("GO TI ", response.data)
+      chrome.runtime.sendMessage({
+        message: "setAuthorization",
+        authorization: response.data
+      });
+
       return response.data;
     });
   }

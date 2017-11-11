@@ -27,16 +27,16 @@ describe('shareDialog', function () {
     var element = util.createDirective(document, 'shareDialog', {});
     fakeAnnotationUI.frames.returns([{ uri: 'http://example.com' }]);
     element.scope.$digest();
-    assert.equal(element.ctrl.viaPageLink, 'https://via.hypothes.is/http://example.com');
+    assert.equal(element.ctrl.viaPageLink, 'https://hive.trive.news/http://example.com');
   });
 
   it('does not generate new via link if already on via', function () {
     var element = util.createDirective(document, 'shareDialog', {});
     fakeAnnotationUI.frames.returns([{
-      uri: 'https://via.hypothes.is/http://example.com',
+      uri: 'https://hive.trive.news/http://example.com',
     }]);
     element.scope.$digest();
-    assert.equal(element.ctrl.viaPageLink, 'https://via.hypothes.is/http://example.com');
+    assert.equal(element.ctrl.viaPageLink, 'https://hive.trive.news/http://example.com');
   });
 
   it('tracks the target being shared', function(){

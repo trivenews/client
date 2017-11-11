@@ -130,7 +130,7 @@ module.exports = class Document extends Plugin
       if rel not in ["alternate", "canonical", "bookmark", "shortlink"] then continue
 
       if rel is 'alternate'
-# Ignore feeds resources
+        # Ignore feeds resources
         if type and type.match /^application\/(rss|atom)\+xml/ then continue
         # Ignore alternate languages
         if lang then continue

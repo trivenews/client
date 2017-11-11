@@ -1,6 +1,6 @@
 'use strict';
 
-var VIA_PREFIX = 'https://via.hypothes.is/';
+var VIA_PREFIX = 'https://hive.trive.news/';
 
 // @ngInject
 function ShareDialogController($scope, $element, analytics, annotationUI) {

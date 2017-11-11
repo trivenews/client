@@ -42,7 +42,9 @@ function AnnotationController(
     var updating = !!annot.id;
 
     if (updating) {
-      saved = store.annotation.update({ id: annot.id }, annot);
+      saved = store.annotation.update({
+        id: annot.id
+      }, annot);
     } else {
       saved = store.annotation.create({}, annot);
     }
@@ -78,11 +80,11 @@ function AnnotationController(
   }
 
   /**
-    * Initialize the controller instance.
-    *
-    * All initialization code except for assigning the controller instance's
-    * methods goes here.
-    */
+   * Initialize the controller instance.
+   *
+   * All initialization code except for assigning the controller instance's
+   * methods goes here.
+   */
   function init() {
     /** Determines whether controls to expand/collapse the annotation body
      * are displayed adjacent to the tags field.
@@ -99,13 +101,13 @@ function AnnotationController(
     self.showShareDialog = false;
 
     /**
-      * `true` if this AnnotationController instance was created as a result of
-      * the highlight button being clicked.
-      *
-      * `false` if the annotation button was clicked, or if this is a highlight
-      * or annotation that was fetched from the server (as opposed to created
-      * new client-side).
-      */
+     * `true` if this AnnotationController instance was created as a result of
+     * the highlight button being clicked.
+     *
+     * `false` if the annotation button was clicked, or if this is a highlight
+     * or annotation that was fetched from the server (as opposed to created
+     * new client-side).
+     */
     newlyCreatedByHighlightButton = self.annotation.$highlight || false;
 
     // New annotations (just created locally by the client, rather then
@@ -190,10 +192,10 @@ function AnnotationController(
   };
 
   /**
-    * @ngdoc method
-    * @name annotation.AnnotationController#flag
-    * @description Flag the annotation.
-    */
+   * @ngdoc method
+   * @name annotation.AnnotationController#flag
+   * @description Flag the annotation.
+   */
   this.flag = function () {
     if (!session.state.userid) {
       flash.error(
@@ -213,12 +215,12 @@ function AnnotationController(
   };
 
   /**
-    * @ngdoc method
-    * @name annotation.AnnotationController#delete
-    * @description Deletes the annotation.
-    */
+   * @ngdoc method
+   * @name annotation.AnnotationController#delete
+   * @description Deletes the annotation.
+   */
   this.delete = function () {
-    return $timeout(function () {  // Don't use confirm inside the digest cycle.
+    return $timeout(function () { // Don't use confirm inside the digest cycle.
       var msg = 'Are you sure you want to delete this annotation?';
       alertify.confirm(msg, function () {
         var onRejected = function (err) {
@@ -247,10 +249,10 @@ function AnnotationController(
   };
 
   /**
-    * @ngdoc method
-    * @name annotation.AnnotationController#edit
-    * @description Switches the view to an editor.
-    */
+   * @ngdoc method
+   * @name annotation.AnnotationController#edit
+   * @description Switches the view to an editor.
+   */
   this.edit = function () {
     if (!drafts.get(self.annotation)) {
       drafts.update(self.annotation, self.state());
@@ -268,27 +270,27 @@ function AnnotationController(
   };
 
   /**
-    * @ngdoc method
-    * @name annotation.AnnotationController#group.
-    * @returns {Object} The full group object associated with the annotation.
-    */
+   * @ngdoc method
+   * @name annotation.AnnotationController#group.
+   * @returns {Object} The full group object associated with the annotation.
+   */
   this.group = function () {
     return groups.get(self.annotation.group);
   };
 
   /**
-    * @ngdoc method
-    * @name annotation.AnnotaitonController#hasContent
-    * @returns {boolean} `true` if this annotation has content, `false`
-    *   otherwise.
-    */
+   * @ngdoc method
+   * @name annotation.AnnotaitonController#hasContent
+   * @returns {boolean} `true` if this annotation has content, `false`
+   *   otherwise.
+   */
   this.hasContent = function () {
     return self.state().text.length > 0 || self.state().tags.length > 0;
   };
 
   /**
-    * Return the annotation's quote if it has one or `null` otherwise.
-    */
+   * Return the annotation's quote if it has one or `null` otherwise.
+   */
   this.quote = function () {
     if (self.annotation.target.length === 0) {
       return null;
@@ -308,10 +310,10 @@ function AnnotationController(
   };
 
   /**
-    * @ngdoc method
-    * @name annotation.AnnotationController#isHighlight.
-    * @returns {boolean} true if the annotation is a highlight, false otherwise
-    */
+   * @ngdoc method
+   * @name annotation.AnnotationController#isHighlight.
+   * @returns {boolean} true if the annotation is a highlight, false otherwise
+   */
   this.isHighlight = function () {
     if (newlyCreatedByHighlightButton) {
       return true;
@@ -335,11 +337,11 @@ function AnnotationController(
   };
 
   /**
-    * @ngdoc method
-    * @name annotation.AnnotationController#isShared
-    * @returns {boolean} True if the annotation is shared (either with the
-    * current group or with everyone).
-    */
+   * @ngdoc method
+   * @name annotation.AnnotationController#isShared
+   * @returns {boolean} True if the annotation is shared (either with the
+   * current group or with everyone).
+   */
   this.isShared = function () {
     return !self.state().isPrivate;
   };
@@ -358,11 +360,11 @@ function AnnotationController(
   };
 
   /**
-    * @ngdoc method
-    * @name annotation.AnnotationController#reply
-    * @description
-    * Creates a new message in reply to this annotation.
-    */
+   * @ngdoc method
+   * @name annotation.AnnotationController#reply
+   * @description
+   * Creates a new message in reply to this annotation.
+   */
   this.reply = function () {
     var references = (self.annotation.references || []).concat(self.annotation.id);
     var group = self.annotation.group;
@@ -376,16 +378,18 @@ function AnnotationController(
       group: group,
       references: references,
       permissions: replyPermissions,
-      target: [{ source: self.annotation.target[0].source }],
+      target: [{
+        source: self.annotation.target[0].source
+      }],
       uri: self.annotation.uri,
     });
   };
 
   /**
-    * @ngdoc method
-    * @name annotation.AnnotationController#revert
-    * @description Reverts an edit in progress and returns to the viewer.
-    */
+   * @ngdoc method
+   * @name annotation.AnnotationController#revert
+   * @description Reverts an edit in progress and returns to the viewer.
+   */
   this.revert = function () {
     drafts.remove(self.annotation);
     if (isNew(self.annotation)) {
@@ -421,12 +425,8 @@ function AnnotationController(
 
       var event = isNew(self.annotation) ?
         events.ANNOTATION_CREATED : events.ANNOTATION_UPDATED;
-      console.log("WILL REMOVE Draft");
       drafts.remove(self.annotation);
-      console.log("REMOVED");
-
       $rootScope.$broadcast(event, updatedModel);
-      console.log("MODEL UPDATED")
     }).catch(function (err) {
       console.error("an error was found");
       self.isSaving = false;
@@ -435,17 +435,24 @@ function AnnotationController(
     });
   };
 
+  this.showShareAnnotationDialog = function () {
+    FB.ui({
+      method: 'share',
+      href: 'https://developers.facebook.com/docs/',
+    }, function (response) {});
+  }
+
   /**
-    * @ngdoc method
-    * @name annotation.AnnotationController#setPrivacy
-    *
-    * Set the privacy settings on the annotation to a predefined
-    * level. The supported levels are 'private' which makes the annotation
-    * visible only to its creator and 'shared' which makes the annotation
-    * visible to everyone in the group.
-    *
-    * The changes take effect when the annotation is saved
-    */
+   * @ngdoc method
+   * @name annotation.AnnotationController#setPrivacy
+   *
+   * Set the privacy settings on the annotation to a predefined
+   * level. The supported levels are 'private' which makes the annotation
+   * visible only to its creator and 'shared' which makes the annotation
+   * visible to everyone in the group.
+   *
+   * The changes take effect when the annotation is saved
+   */
   this.setPrivacy = function (privacy) {
     // When the user changes the privacy level of an annotation they're
     // creating or editing, we cache that and use the same privacy level the
@@ -464,7 +471,9 @@ function AnnotationController(
   };
 
   this.tagSearchURL = function (tag) {
-    return serviceUrl('search.tag', { tag: tag });
+    return serviceUrl('search.tag', {
+      tag: tag
+    });
   };
 
   // Note: We fetch the feature flag outside the `isOrphan` method to avoid a

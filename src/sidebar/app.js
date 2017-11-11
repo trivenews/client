@@ -49,7 +49,7 @@ if (settings.raven) {
   angular.module('ngRaven', []);
 }
 
-if(settings.googleAnalytics){
+if (settings.googleAnalytics) {
   addAnalytics(settings.googleAnalytics);
 }
 
@@ -72,18 +72,16 @@ function configureLocation($locationProvider) {
 function configureRoutes($routeProvider) {
   // The `vm.{auth,search}` properties used in these templates come from the
   // `<hypothesis-app>` component which hosts the router's container element.
-  $routeProvider.when('/a/:id',
-    {
-      template: '<annotation-viewer-content search="vm.search"></annotation-viewer-content>',
-      reloadOnSearch: false,
-      resolve: resolve,
-    });
-  $routeProvider.when('/stream',
-    {
-      template: '<stream-content search="vm.search"></stream-content>',
-      reloadOnSearch: false,
-      resolve: resolve,
-    });
+  $routeProvider.when('/a/:id', {
+    template: '<annotation-viewer-content search="vm.search"></annotation-viewer-content>',
+    reloadOnSearch: false,
+    resolve: resolve,
+  });
+  $routeProvider.when('/stream', {
+    template: '<stream-content search="vm.search"></stream-content>',
+    reloadOnSearch: false,
+    resolve: resolve,
+  });
   $routeProvider.otherwise({
     template: '<sidebar-content search="vm.search" auth="vm.auth"></sidebar-content>',
     reloadOnSearch: false,
@@ -107,6 +105,41 @@ function configureHttp($httpProvider) {
 // @ngInject
 function setupHttp($http, streamer) {
   $http.defaults.headers.common['X-Client-Id'] = streamer.clientId;
+}
+
+// @ngInject
+function setupFacebook($rootScope) {
+  // var functionsToRunOnFbInit = [];
+  // $rootScope.runFacebookFunction = function(fn){
+  //   if($rootScope.facebookInitialized){
+  //     fn();
+  //     return;
+  //   }
+  //   functionsToRunOnFbInit.push(fn);
+  // }
+  // window.fbAsyncInit = function () {
+  //   FB.init({
+  //     appId: '237186756761005',
+  //     autoLogAppEvents: true,
+  //     xfbml: true,
+  //     version: 'v2.11'
+  //   });
+  //   $rootScope.facebookInitialized = true;
+  //   functionsToRunOnFbInit.forEach(function(fn){
+  //     fn();
+  //   })
+  // };
+
+  // (function (d, s, id) {
+  //   var js, fjs = d.getElementsByTagName(s)[0];
+  //   if (d.getElementById(id)) {
+  //     return;
+  //   }
+  //   js = d.createElement(s);
+  //   js.id = id;
+  //   js.src = "https://connect.facebook.net/en_US/sdk.js";
+  //   fjs.parentNode.insertBefore(js, fjs);
+  // }(document, 'script', 'facebook-jssdk'));
 }
 
 function processAppOpts() {
@@ -144,24 +177,24 @@ if (shouldUseOAuth()) {
 }
 
 module.exports = angular.module('h', [
-  // Angular addons which export the Angular module name
-  // via module.exports
-  require('angular-jwt'),
-  require('angular-resource'),
-  require('angular-route'),
-  require('angular-sanitize'),
-  require('angular-toastr'),
+    // Angular addons which export the Angular module name
+    // via module.exports
+    require('angular-jwt'),
+    require('angular-resource'),
+    require('angular-route'),
+    require('angular-sanitize'),
+    require('angular-toastr'),
 
-  // Angular addons which do not export the Angular module
-  // name via module.exports
-  ['angulartics', require('angulartics')][0],
-  ['angulartics.google.analytics', require('angulartics/src/angulartics-ga')][0],
-  ['ngTagsInput', require('ng-tags-input')][0],
-  ['ui.bootstrap', require('./vendor/ui-bootstrap-custom-tpls-0.13.4')][0],
+    // Angular addons which do not export the Angular module
+    // name via module.exports
+    ['angulartics', require('angulartics')][0],
+    ['angulartics.google.analytics', require('angulartics/src/angulartics-ga')][0],
+    ['ngTagsInput', require('ng-tags-input')][0],
+    ['ui.bootstrap', require('./vendor/ui-bootstrap-custom-tpls-0.13.4')][0],
 
-  // Local addons
-  'ngRaven',
-])
+    // Local addons
+    'ngRaven',
+  ])
 
   // The root component for the application
   .component('hypothesisApp', require('./components/hypothesis-app'))
@@ -253,7 +286,8 @@ module.exports = angular.module('h', [
   .config(configureToastr)
 
   .run(setupHttp)
-  .run(crossOriginRPC.server.start);
+  .run(crossOriginRPC.server.start)
+  .run(setupFacebook);
 
 processAppOpts();
 
@@ -269,4 +303,6 @@ if (window.chrome && !window.chrome.app) {
 }
 
 var appEl = document.querySelector('hypothesis-app');
-angular.bootstrap(appEl, ['h'], {strictDi: true});
+angular.bootstrap(appEl, ['h'], {
+  strictDi: true
+});

@@ -50,12 +50,12 @@ describe('analytics', function () {
     });
 
     it('sets category as via if url matches the via uri pattern', function () {
-      $windowStub.document.referrer = 'https://via.hypothes.is/';
+      $windowStub.document.referrer = 'https://hive.trive.news/';
       analyticsService($analyticsStub, $windowStub).track('eventA');
       assert.deepEqual(eventTrackStub.args[0], ['eventA', createEventObj({category: 'via'})]);
 
       // match staging as well
-      $windowStub.document.referrer = 'https://qa-via.hypothes.is/';
+      $windowStub.document.referrer = 'https://qa-hive.trive.news/';
       analyticsService($analyticsStub, $windowStub).track('eventB');
       assert.deepEqual(eventTrackStub.args[1], ['eventB', createEventObj({category: 'via'})]);
     });
